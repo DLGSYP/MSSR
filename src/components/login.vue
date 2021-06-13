@@ -31,7 +31,8 @@ export default {
                 phone:"",
                 password : "",
                 },
-             switch_show : true 
+             switch_show : true ,
+            
         }
     },
     computed:{
@@ -43,7 +44,6 @@ export default {
     methods:{
         showchange(){
              this.switch_show=!this.switch_show
-             console.log(this.switch_show)
         },
         login(formname){
             //ele自带的校验
@@ -51,12 +51,13 @@ export default {
                 if(valid){
                     let data = this.ruleForm
                     this.loginpost(data.phone,data.password)
+                    this.$router.push({path : '/personal'})
                 }
             })
         },
         loginpost(phone,password){
             this.$api.loginPost(phone,password).then(res=>{
-                console.log(res)
+                console.log("LOGIN",res)
                 this.getuserdetail(res.profile.userId)
                 window.localStorage.setItem("cookie",res.cookie)
                 window.localStorage.setItem("token",res.token)
@@ -64,26 +65,37 @@ export default {
         },
         async getuserdetail(uid){
             let res =  await this.$api.getUserDetail(uid)
-            console.log(res)
+            console.log("USERDETAIL",res)
+            let da = 12
             let userfile = {}
-            //创建日期
+            //创建日期、等级、已听歌曲数量
             userfile.createTime = res.createTime
-            userfile.createDay  = res.createDay
-            //名字、性别、图像、城市
+            userfile.level      = res.level
+            userfile.listenSongs= res.listenSongs
+            
+            //名字、性别、图像、城市、个人描述
             userfile.nickname   = res.profile.nickname
             userfile.avatarurl  = res.profile.avatarUrl
             userfile.city       = res.profile.city
             userfile.gender     = res.profile.gender
+            userfile.description= res.profile.description
+            userfile.bgc        = res.profile.backgroundUrl
+            userfile.uid        = res.profile.userId
             //粉丝数、关注数
             userfile.followeds  = res.profile.followeds
-            userfile.follows    = res,profile.follows
+            userfile.follows    = res.profile.follows
+            
             //将数据保存到vuex中
             this.set_userfile(userfile)
+            this.set_try(da)
+            this.set_uid()
             //将数据保存到localstorage中
             window.localStorage.setItem('userfile',JSON.stringify(userfile))
         },
         ...mapMutations({
-            set_userfile : 'SET_USER_FILE'
+            set_userfile : 'SET_USER_FILE',
+            set_try      :  'SET_TRY',
+            set_uid      : 'SET_UID',
         })
     },
     mounted(){

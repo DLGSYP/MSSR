@@ -1,4 +1,9 @@
 export const getUserflie = function(state){
-    return state.userfile || window.localStorage.getItem('userfile')
+    return (
+        state.userfile || JSON.parse(window.localStorage.getItem('userfile'))
+    )
 }
 
+export const gettry = function(state){
+    return state.try
+}

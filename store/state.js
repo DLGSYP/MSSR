@@ -1,6 +1,7 @@
 const state = {
-    userfile : {}
-
+    userfile : null,
+    try : null,
+    uid : null
 }
 
 export default state

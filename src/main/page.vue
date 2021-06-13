@@ -1,14 +1,14 @@
 <template>
 <div class="page">
-    <login/>
-    <!-- <banner/> -->
+
+    <banner/>
 </div>
 </template>
 
 <script>
 import Banner from "../components/banner"
-import Vueqr from "../components/qr"
-import Login from "../components/login"
+
+
 export default {
     name:'page',
     data(){
@@ -18,8 +18,7 @@ export default {
     },
     components:{
         Banner,
-        Vueqr,
-        Login
+
     }
 }
 </script>

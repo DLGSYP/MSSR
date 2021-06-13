@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuex from 'vuex'
 import axios from 'axios'
 import getApi from './api/export'
 import ElementUI from 'element-ui';
+import store from '../store'
 //import 'element-plus/lib/theme-chalk/index.css';
 //import swiper from 'vue-awesome-swiper'
 Vue.prototype.$axios = axios
@@ -22,6 +22,7 @@ Vue.use(ElementUI)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
