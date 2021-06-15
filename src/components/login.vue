@@ -28,8 +28,8 @@ export default {
     data(){
         return {
             ruleForm : {
-                phone:"",
-                password : "",
+                phone:13711002650,
+                password : "MES683280",
                 },
              switch_show : true ,
             
@@ -51,13 +51,18 @@ export default {
                 if(valid){
                     let data = this.ruleForm
                     this.loginpost(data.phone,data.password)
-                    this.$router.push({path : '/personal'})
+                    //此处不加延时的话，页面无法获取到vuex中的数据
+                    setTimeout(()=>{
+                        this.$router.push({path : '/personal'})
+                    },1000)
+                    
                 }
             })
         },
         loginpost(phone,password){
             this.$api.loginPost(phone,password).then(res=>{
                 console.log("LOGIN",res)
+                console.log("LOGIN",res.profile.userId)
                 this.getuserdetail(res.profile.userId)
                 window.localStorage.setItem("cookie",res.cookie)
                 window.localStorage.setItem("token",res.token)
@@ -84,13 +89,13 @@ export default {
             //粉丝数、关注数
             userfile.followeds  = res.profile.followeds
             userfile.follows    = res.profile.follows
-            
+            console.log("USERFILE",userfile)
             //将数据保存到vuex中
             this.set_userfile(userfile)
             this.set_try(da)
             this.set_uid()
             //将数据保存到localstorage中
-            window.localStorage.setItem('userfile',JSON.stringify(userfile))
+            //window.localStorage.setItem('userfile',JSON.stringify(userfile))
         },
         ...mapMutations({
             set_userfile : 'SET_USER_FILE',

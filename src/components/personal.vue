@@ -3,7 +3,7 @@
           <div class="avaimg">
               <img :src="avatarurl" alt="" class="avaimg">
           </div>
-           <div class="nickname">名称{{nickname}}</div>
+           <div class="nickname">名称</div>
            <div class="city">城市{{city}}</div>
            <div class="gender">{{gender}}</div>
            <div class="level">等级{{level}}</div>
@@ -77,6 +77,7 @@ export default {
     mounted(){
         this.get_file(),
         this.getlocaltion()
+        this.check()
     }
 }
 </script>

@@ -26,9 +26,12 @@ import api from './instance'
 export const getbanner =()=> api.get('/banner',{})
 
 /*登录*/
+
+//qr
 export const getQrCode = ()=>api.get('/login/qr/key',{})
 export const getQrPic = (key)=>api.get(`/login/qr/create?key=${key}`,{})
 export const getQrSta = (key)=>api.get(`/login/qr/check?key=${key}`,{})
+//手机
 export const loginPost = (userphone,password)=>api.get(`/login/cellphone?phone=${userphone}&password=${password}`,{})
 export const loginmail = (usermail,password)=>api.get(`/login?email=${usermail}&password=${password}`,{})
 
